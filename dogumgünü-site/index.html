@@ -8,9 +8,17 @@
       body {
         margin: 0;
         padding: 0;
-        background: linear-gradient(to top right, #ffe6f0, #fff1f2);
+        /* Arka plan: gradient + resim */
+        background: linear-gradient(
+            to top right,
+            rgba(255, 230, 240, 0.6),
+            rgba(255, 241, 242, 0.6)
+          ),
+          url("arka-plan.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
         height: 100vh;
-        overflow-x: hidden;
         font-family: "Segoe UI", sans-serif;
         position: relative;
         overflow-y: hidden;
@@ -320,6 +328,18 @@
           height: calc(60vw * 16 / 9);
         }
       }
+
+      /* Ver yazısı stili */
+      .note {
+        margin-top: 15px;
+        font-size: 1rem;
+        font-style: italic;
+        color: #a83265;
+        background: #ffe6f0;
+        padding: 10px;
+        border-radius: 8px;
+        box-shadow: 0 0 8px rgba(168, 50, 101, 0.3);
+      }
     </style>
   </head>
   <body>
@@ -339,14 +359,14 @@
           </div>
         </div>
 
-        <!-- Sağ: Mesaj ve pasta -->
+        <!-- Sağ: Mesaj, pasta ve ver yazısı -->
         <div class="right">
-          <h2>İyi ki Doğdun Hilaydam! 🎉</h2>
+          <h2>İyi ki Doğdun Hilayda! 🎉</h2>
           <p>
             Seni ilk tanıdığım da minicik bir kızdın şimdi kocaman bebek oldun
             seninle iyi kötü günlerimiz oldu her zaman yanımda olduğun için sana
             çok teşekkür ederim iyi ki varsın bebeğim benim seni çok ama çok
-            seviyorum İyiki doğdun tatlı kızım❤️🌹
+            seviyorum İyiki doğdun tatlı kızım❤️🌹 ❤️🌹
           </p>
           <div class="cake">
             <img src="cake.png" alt="Doğum günü pastası" />
@@ -354,6 +374,10 @@
             <div class="candle candle2"><div class="flame"></div></div>
             <div class="candle candle3"><div class="flame"></div></div>
           </div>
+          <p class="note">
+            Ver yazısı: Hayatın her anı senin için özel ve değerli. Nice mutlu
+            yıllara! 💫
+          </p>
         </div>
       </div>
 
