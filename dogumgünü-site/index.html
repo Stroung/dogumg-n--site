@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Hilayda'nın Doğum Günü 🎉</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to top right, #ffe6f0, #fff1f2);
+        height: 100vh;
+        overflow-x: hidden;
+        font-family: "Segoe UI", sans-serif;
+        position: relative;
+        overflow-y: hidden;
+      }
+
+      .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        box-sizing: border-box;
+        position: relative;
+        z-index: 1;
+      }
+
+      .envelope {
+        width: 200px;
+        height: 130px;
+        background: #ffb6c1;
+        position: relative;
+        border: 2px solid #d63384;
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #d63384;
+        font-weight: 700;
+        font-size: 18px;
+        text-align: center;
+        padding: 0 10px;
+        box-sizing: border-box;
+        z-index: 10;
+        transition: transform 0.3s ease;
+      }
+
+      .envelope::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        border-style: solid;
+        border-width: 0 100px 65px 100px;
+        border-color: transparent transparent #ff69b4 transparent;
+        z-index: -1;
+      }
+
+      .envelope.open {
+        transform: translateY(-150px) scale(0.8);
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      .message {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 20px;
+        position: absolute;
+        width: 90%;
+        max-width: 1000px;
+        background: white;
+        padding: 20px;
+        border-radius: 10px;
+        border: 2px solid #ff69b4;
+        box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+        transform: scale(0);
+        transition: all 0.5s ease;
+        z-index: 10;
+        flex-wrap: wrap;
+        opacity: 0;
+      }
+
+      .message.show {
+        transform: scale(1);
+        opacity: 1;
+        animation: fadeIn 1s ease forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.5);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .left,
+      .right {
+        flex: 1 1 300px;
+        min-width: 250px;
+      }
+
+      .video-wrapper {
+        position: relative;
+        width: 250px;
+        height: calc(250px * 16 / 9);
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      .video-wrapper video {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+      }
+
+      .right h2 {
+        color: #d63384;
+        margin-bottom: 10px;
+      }
+
+      .right p {
+        font-size: 16px;
+        color: #444;
+      }
+
+      .cake {
+        margin-top: 20px;
+        position: relative;
+        width: 180px;
+        max-width: 100%;
+      }
+
+      .cake img {
+        width: 100%;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        display: block;
+      }
+
+      .candle {
+        position: absolute;
+        bottom: 90%;
+        width: 8px;
+        height: 20px;
+        background: #ff6347;
+        border-radius: 2px;
+        box-shadow: 0 0 5px #ff6347;
+      }
+
+      .flame {
+        position: absolute;
+        bottom: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 10px;
+        height: 15px;
+        background: radial-gradient(circle at 50% 50%, #fffa87, #ff5800);
+        border-radius: 50% 50% 50% 50% / 70% 70% 30% 30%;
+        filter: drop-shadow(0 0 4px #ffb347);
+        animation: flicker 1.5s infinite;
+      }
+
+      .candle1 {
+        left: 20%;
+      }
+      .candle2 {
+        left: 45%;
+      }
+      .candle3 {
+        left: 70%;
+      }
+
+      @keyframes flicker {
+        0%,
+        100% {
+          transform: translateX(-50%) scaleY(1) scaleX(1) translateY(0);
+          opacity: 1;
+        }
+        25% {
+          transform: translateX(calc(-50% + 2px)) scaleY(1.1) scaleX(1.05)
+            translateY(-1px);
+          opacity: 0.9;
+        }
+        50% {
+          transform: translateX(calc(-50% - 2px)) scaleY(0.9) scaleX(0.95)
+            translateY(1px);
+          opacity: 0.8;
+        }
+        75% {
+          transform: translateX(calc(-50% + 1px)) scaleY(1.05) scaleX(1.03)
+            translateY(-0.5px);
+          opacity: 0.95;
+        }
+      }
+
+      /* PATLAMA animasyonları */
+
+      .confetti,
+      .balloon,
+      .heart {
+        position: fixed;
+        font-size: 24px;
+        opacity: 0;
+        pointer-events: none;
+        user-select: none;
+        animation-fill-mode: forwards;
+        z-index: 100;
+        will-change: transform, opacity;
+      }
+
+      @keyframes popUp {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) scale(0.3) rotate(0deg);
+        }
+        50% {
+          transform: translate(0, -30px) scale(1.2) rotate(30deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(0, -60px) scale(1.5) rotate(60deg);
+        }
+      }
+
+      /* Havai fişek patlama efektleri */
+      .firework {
+        position: fixed;
+        border-radius: 50%;
+        opacity: 0;
+        pointer-events: none;
+        user-select: none;
+        z-index: 110;
+        box-shadow: 0 0 10px 2px #ff4b4b, 0 0 20px 4px #ff4b4b,
+          0 0 30px 6px #ff4b4b;
+        animation: fireworkPop 1.2s ease forwards;
+        will-change: transform, opacity;
+      }
+
+      @keyframes fireworkPop {
+        0% {
+          opacity: 1;
+          transform: scale(0);
+        }
+        50% {
+          opacity: 1;
+          transform: scale(1);
+          box-shadow: 0 0 15px 3px #ff4b4b, 0 0 30px 6px #ff4b4b,
+            0 0 45px 9px #ff4b4b;
+        }
+        100% {
+          opacity: 0;
+          transform: scale(1.8);
+        }
+      }
+
+      /* Güller için animasyon */
+      .rose {
+        position: fixed;
+        font-size: 20px;
+        opacity: 0;
+        pointer-events: none;
+        user-select: none;
+        animation-fill-mode: forwards;
+        z-index: 111;
+        will-change: transform, opacity;
+        animation-name: roseFly;
+        animation-duration: 1200ms;
+        animation-timing-function: ease-out;
+      }
+
+      @keyframes roseFly {
+        0% {
+          opacity: 1;
+          transform: translate(0, 0) scale(0.5) rotate(0deg);
+        }
+        50% {
+          opacity: 1;
+          transform: translate(calc(var(--x) * 30px), calc(var(--y) * -30px))
+            scale(1) rotate(180deg);
+        }
+        100% {
+          opacity: 0;
+          transform: translate(calc(var(--x) * 60px), calc(var(--y) * -60px))
+            scale(0.3) rotate(360deg);
+        }
+      }
+
+      /* Mobil uyumlu */
+      @media (max-width: 768px) {
+        .message {
+          flex-direction: column;
+          align-items: center;
+          text-align: center;
+        }
+
+        .left,
+        .right {
+          width: 100%;
+          padding: 0;
+        }
+
+        .right p {
+          font-size: 15px;
+        }
+
+        .video-wrapper {
+          width: 60vw;
+          height: calc(60vw * 16 / 9);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="envelope" id="envelope" title="Zarfa tıkla!">
+        Hilayda’nın Mesajı
+      </div>
+
+      <div class="message" id="birthdayMessage" aria-hidden="true">
+        <!-- Sol: Video -->
+        <div class="left">
+          <div class="video-wrapper">
+            <video id="bdayVideo" controls autoplay muted playsinline>
+              <source src="video.mp4" type="video/mp4" />
+              Tarayıcınız video öğesini desteklemiyor.
+            </video>
+          </div>
+        </div>
+
+        <!-- Sağ: Mesaj ve pasta -->
+        <div class="right">
+          <h2>İyi ki Doğdun Hilaydam! 🎉</h2>
+          <p>
+            Seni ilk tanıdığım da minicik bir kızdın şimdi kocaman bebek oldun
+            seninle iyi kötü günlerimiz oldu her zaman yanımda olduğun için sana
+            çok teşekkür ederim iyi ki varsın bebeğim benim seni çok ama çok
+            seviyorum İyiki doğdun tatlı kızım❤️🌹
+          </p>
+          <div class="cake">
+            <img src="cake.png" alt="Doğum günü pastası" />
+            <div class="candle candle1"><div class="flame"></div></div>
+            <div class="candle candle2"><div class="flame"></div></div>
+            <div class="candle candle3"><div class="flame"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <audio id="bgMusic" src="music.mp3" preload="auto"></audio>
+    </div>
+
+    <script>
+      const envelope = document.getElementById("envelope");
+      const message = document.getElementById("birthdayMessage");
+      const music = document.getElementById("bgMusic");
+
+      envelope.addEventListener("click", () => {
+        envelope.style.pointerEvents = "none"; // Tekrar tıklanmasın
+        playAnimations().then(() => {
+          openEnvelope();
+        });
+      });
+
+      function openEnvelope() {
+        envelope.classList.add("open");
+        message.classList.add("show");
+        music.play().catch(() => {
+          music.muted = true;
+          music.play();
+        });
+      }
+
+      async function playAnimations() {
+        let promises = [];
+
+        // Konfeti, balon, kalp patlamaları
+        for (let i = 0; i < 60; i++) {
+          promises.push(createPopAnimation(i * 100));
+        }
+
+        // Havai fişekler (az ama etkileyici)
+        for (let i = 0; i < 8; i++) {
+          promises.push(createFirework(i * 500 + 2000));
+        }
+
+        await Promise.all(promises);
+      }
+
+      function createPopAnimation(delay) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            const icons = ["🎈", "🎉", "❤️"];
+            const pop = document.createElement("div");
+            pop.classList.add("confetti");
+            pop.style.left = Math.random() * window.innerWidth + "px";
+            pop.style.top =
+              window.innerHeight * 0.6 +
+              Math.random() * window.innerHeight * 0.4 +
+              "px";
+            pop.style.fontSize = Math.random() * 25 + 25 + "px";
+            pop.innerText = icons[Math.floor(Math.random() * icons.length)];
+            document.body.appendChild(pop);
+
+            pop.style.animation = "popUp 800ms ease forwards";
+
+            pop.addEventListener("animationend", () => {
+              pop.remove();
+              resolve();
+            });
+          }, delay);
+        });
+      }
+
+      function createFirework(delay) {
+        return new Promise((resolve) => {
+          setTimeout(() => {
+            const fw = document.createElement("div");
+            fw.classList.add("firework");
+            fw.style.left =
+              window.innerWidth * 0.2 +
+              Math.random() * window.innerWidth * 0.6 +
+              "px";
+            fw.style.top =
+              window.innerHeight * 0.1 +
+              Math.random() * window.innerHeight * 0.5 +
+              "px";
+            const size = Math.random() * 60 + 40;
+            fw.style.width = fw.style.height = size + "px";
+
+            document.body.appendChild(fw);
+
+            // Gülleri oluşturuyoruz
+            const roseCount = 8;
+            const roses = [];
+            for (let i = 0; i < roseCount; i++) {
+              const rose = document.createElement("div");
+              rose.classList.add("rose");
+              rose.style.left = fw.style.left;
+              rose.style.top = fw.style.top;
+
+              const angle = Math.random() * 2 * Math.PI;
+              rose.style.setProperty("--x", Math.cos(angle).toFixed(2));
+              rose.style.setProperty("--y", Math.sin(angle).toFixed(2));
+
+              rose.style.fontSize = 15 + Math.random() * 15 + "px";
+
+              rose.innerText = "🌹";
+
+              document.body.appendChild(rose);
+              roses.push(rose);
+            }
+
+            fw.addEventListener("animationend", () => {
+              fw.remove();
+              roses.forEach((r) => r.remove());
+              resolve();
+            });
+          }, delay);
+        });
+      }
+    </script>
+  </body>
+</html>
